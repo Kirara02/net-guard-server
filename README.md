@@ -41,6 +41,7 @@ NetGuard adalah **sistem pemantauan server enterprise** yang terintegrasi dengan
 - JWT-based authentication untuk API security
 - Role-based access control
 - Password hashing dengan bcrypt
+- Profile management (update profile)
 
 ### 🌐 **Server Monitoring**
 - CRUD operations untuk server management
@@ -95,10 +96,11 @@ NetGuard adalah **sistem pemantauan server enterprise** yang terintegrasi dengan
 NetGuard Backend
 ├── Clean Architecture (Repository → Service → Controller)
 ├── PostgreSQL Database dengan GORM
-├── JWT Authentication
+├── JWT Authentication & Profile Management
 ├── FCM Push Notifications
-├── Docker Support
-└── Hot Reload dengan Air
+├── Docker Support & Google Wire DI
+├── Hot Reload dengan Air
+└── Comprehensive API Documentation
 ```
 
 ## 📋 Prerequisites
@@ -379,16 +381,22 @@ Update Status via API → Close Incident
 ```
 NetGuardServer/
 ├── config/           # Configuration management
-├── controllers/      # HTTP request handlers
-├── middleware/       # Custom middleware (JWT auth)
-├── models/          # Database models
-├── repository/      # Data access layer
-├── routes/          # Route definitions
-├── services/        # Business logic layer
-├── utils/           # Utility functions
+├── controllers/      # HTTP request handlers (pure functions)
+├── dto/             # Data Transfer Objects (request/response)
+├── middleware/      # Custom middleware (JWT auth, CORS)
+├── models/          # Database models (GORM)
+├── repository/      # Data access layer (interfaces + implementations)
+├── routes/          # Route definitions & dependency injection setup
+├── services/        # Business logic layer (interfaces + implementations)
+├── utils/           # Utility functions (JWT, password, validation, response)
+├── di/              # Dependency injection (Google Wire)
 ├── main.go          # Application entry point
 ├── .air.toml        # Air hot reload config
-├── .air.toml        # Air hot reload config
+├── docker-compose.yml # Docker orchestration
+├── Dockerfile       # Multi-stage Docker build
+├── .env.example     # Environment variables template
+├── .gitignore       # Git ignore rules
+├── API_DOCUMENTATION.md # Complete API reference
 └── README.md
 ```
 

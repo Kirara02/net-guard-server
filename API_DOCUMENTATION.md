@@ -97,8 +97,43 @@ Authorization: Bearer <jwt_token>
     "email": "john@example.com",
     "division": "IT",
     "phone": "08123456789",
-    "role": "USER",
-    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z"
+  }
+}
+```
+
+### **PUT /api/auth/profile**
+
+Update current user profile
+
+**Headers:**
+
+```
+Authorization: Bearer <jwt_token>
+```
+
+**Request Body:**
+
+```json
+{
+  "name": "John Doe Updated",
+  "division": "Senior IT",
+  "phone": "081234567890"
+}
+```
+
+**Response (200):**
+
+```json
+{
+  "success": true,
+  "message": "Profile updated successfully",
+  "data": {
+    "id": "uuid",
+    "name": "John Doe Updated",
+    "email": "john@example.com",
+    "division": "Senior IT",
+    "phone": "081234567890",
     "created_at": "2024-01-01T00:00:00Z"
   }
 }
@@ -292,44 +327,9 @@ Authorization: Bearer <jwt_token>
 
 ## 🚨 Incident Management (History) Endpoints
 
-### **POST /api/history**
+### **POST /api/history** *(REMOVED - Auto-created by server status updates)*
 
-Create incident record (Auto-triggered by status update)
-
-**Headers:**
-
-```
-Authorization: Bearer <jwt_token>
-```
-
-**Request Body:**
-
-```json
-{
-  "server_id": "server-uuid",
-  "server_name": "API Server",
-  "url": "https://api.company.com",
-  "status": "DOWN"
-}
-```
-
-**Response (200):**
-
-```json
-{
-  "success": true,
-  "message": "History record created successfully",
-  "data": {
-    "id": "uuid",
-    "server_id": "server-uuid",
-    "server_name": "API Server",
-    "url": "https://api.company.com",
-    "status": "DOWN",
-    "timestamp": "2024-01-01T00:00:00Z",
-    "created_by": "user-uuid"
-  }
-}
-```
+**Note:** History records are now automatically created when server status is updated to "DOWN" via `PATCH /api/servers/:id/status`. Manual history creation is no longer supported.
 
 ### **GET /api/history**
 
@@ -499,6 +499,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 4. FCM notification sent to all users
 5. Users can resolve incidents via mobile app
 
+### Profile Management Flow:
+
+1. User opens profile settings in mobile app
+2. Call `GET /api/auth/me` to get current profile
+3. User updates profile information
+4. Call `PUT /api/auth/profile` to save changes
+5. Mobile app receives updated profile data
+
 ### FCM Notification Payload:
 
 ```json
@@ -540,6 +548,19 @@ curl -X POST http://localhost:8080/api/servers \
   }'
 ```
 
+### Update Profile
+
+```bash
+curl -X PUT http://localhost:8080/api/auth/profile \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "name": "Updated Name",
+    "division": "Senior Developer",
+    "phone": "081234567890"
+  }'
+```
+
 ### Update Server Status (Mobile App)
 
 ```bash
@@ -572,5 +593,6 @@ curl -X GET "http://localhost:8080/api/history/report/monthly?year=2024&month=10
 
 ---
 
-**Last Updated:** October 18, 2024
-**Version:** 1.0.0
+**Last Updated:** October 24, 2024
+**Version:** 1.1.0
+**New Features:** Profile Management, Google Wire DI, Enhanced Architecture
