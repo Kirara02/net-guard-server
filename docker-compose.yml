@@ -1,0 +1,13 @@
+services:
+  netguard-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: netguard-server
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - ./config:/app/config:ro
+    restart: unless-stopped
