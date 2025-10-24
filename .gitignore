@@ -1,0 +1,44 @@
+# Environment variables
+.env
+
+# Firebase service account key
+config/netguard-7b734-9c58282275ac.json
+
+# Docker
+.dockerignore
+
+# Air live reloading
+tmp/
+build-errors.log
+
+# Go build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (uncomment if using vendor)
+# vendor/
+
+# Go workspace file
+go.work
+
+# IDE files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
